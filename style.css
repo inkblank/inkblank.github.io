@@ -1,36 +1,25 @@
+body{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
 .container{
-    width: 350px;
+    width: 400px;
 }
 
-#controls i{
-    font-size: 25px;
-    color: blue;
-    margin-right: 20px;
+#progress #progress-bar{
+    width: 100%;
 }
 
-#controls .fa-solid{
-    transition: colors 3s ease-in-out;
-}
-
-#controls .fa-solid:hover{
-    opacity: .6;
-}
-
-#progress{
-    margin-bottom: 20px;
-}
-
-#progress .times, #controls{
+#progress .times,
+.card-footer,
+.volume-container{
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-
-#progress-bar{
-    width: 100%;
+.volume-container i{
+    margin-right: 10px;
 }
-
-#music-image{
-    width: 100%;
-}
-

@@ -10,12 +10,14 @@ const currentTime = document.querySelector("#current-time")
 const progressBar = document.querySelector("#progress-bar")
 const volume = document.querySelector("#volume")
 const volumeBar = document.querySelector("#volume-bar")
+const ul = document.querySelector("ul")
 
 const player = new MusicPlayer(musicList)
 
 window.addEventListener("load",()=>{
     let music = player.getMusic()
     displayMusic(music)
+    displayMusicList(player.musicList)
 })
 
 function displayMusic(music){
@@ -48,15 +50,13 @@ const prevMusic = () => {
 const pauseMusic =() => {
     audio.pause()
     container.classList.remove('playing')
-    play.classList = "fa-solid fa-play"
-    play.style.color = "red"
+    play.querySelector("i").classList = "fa-solid fa-play"
 }
 
 const playMusic = () => {
     audio.play()
     container.classList.add('playing')
-    play.classList = "fa-solid fa-pause"
-    play.style.color = "blue"
+    play.querySelector("i").classList = "fa-solid fa-pause"
 }
 
 const nextMusic = () => {
@@ -102,10 +102,35 @@ volume.addEventListener("click", ()=>{
 volumeBar.addEventListener("input",(e)=>{
     audio.volume = e.target.value / 100
     if (audio.volume == 0) {
+        audio.muted = true
         volume.classList="fa-solid fa-volume-xmark"
     }else if(audio.volume <= 0.5){
+        audio.muted = false
         volume.classList ="fa-solid fa-volume-low"
     }else{
+        audio.muted = false
         volume.classList ="fa-solid fa-volume-high"
     }
 })
+
+const displayMusicList = (musicList) =>{
+    for (let i = 0; i < musicList.length; i++) {
+        let liTag = `
+        <li class="list-group-item d-flex justify-content-between align-items-center">
+            <span>${musicList[i].getName()}</span>
+            <span id="music-${i}" class="badge bg-primary rounded-pill"></span>
+            <audio class="music-${i}" src="mp3/${musicList[i].file}"></audio>
+        </li>`
+        
+        ul.insertAdjacentHTML("beforeend",liTag)
+
+        let liAudioTag = ul.querySelector(`#music-${i}`)
+        let liAudioDuration = ul.querySelector(`.music-${i}`)
+
+        liAudioDuration.addEventListener("loadeddata",()=>{
+            liAudioTag.innerText = calculateTime(liAudioDuration.duration)
+        })
+
+        
+    }
+}
