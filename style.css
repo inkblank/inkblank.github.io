@@ -1,0 +1,13 @@
+#controls i{
+    font-size: 30px;
+    color: blue;
+    margin-right: 20px;
+}
+
+#controls .fa-solid{
+    transition: colors 3s ease-in-out;
+}
+
+#controls .fa-solid:hover{
+    opacity: .6;
+}
