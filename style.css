@@ -2,12 +2,17 @@ body{
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100vh;
+    height: 100px;
 }
 
 .container{
     width: 400px;
+    margin: 30px;
+    height: 100%;
+    padding: 30px;
 }
+
+
 
 #progress #progress-bar{
     width: 100%;
@@ -22,4 +27,18 @@ body{
 }
 .volume-container i{
     margin-right: 10px;
+}
+
+li{
+    transition: all ease .3s;
+}
+
+li:hover{
+    cursor: pointer;
+    transform: translate(5px);
+}
+
+li.playing{
+    background-color: #0b5eb7;
+    color: #fff;
 }
