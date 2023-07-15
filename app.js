@@ -8,6 +8,8 @@ const next = document.querySelector("#controls #next")
 const duration = document.querySelector("#duration")
 const currentTime = document.querySelector("#current-time")
 const progressBar = document.querySelector("#progress-bar")
+const volume = document.querySelector("#volume")
+const volumeBar = document.querySelector("#volume-bar")
 
 const player = new MusicPlayer(musicList)
 
@@ -79,4 +81,31 @@ audio.addEventListener("timeupdate",()=>{
 progressBar.addEventListener("input", () => {
     audio.currentTime = progressBar.value
     currentTime.textContent = calculateTime(progressBar.value)
+})
+
+
+let muteState = "voiced"
+volume.addEventListener("click", ()=>{
+    if (muteState === "voiced") {
+        audio.muted = true
+        muteState = "quiet"
+        volumeBar.value = 0
+        volume.classList="fa-solid fa-volume-xmark"
+    }else{
+        audio.muted = false
+        volumeBar.value = 100
+        muteState = "voiced"
+        volume.classList ="fa-solid fa-volume-high"
+    }
+})
+
+volumeBar.addEventListener("input",(e)=>{
+    audio.volume = e.target.value / 100
+    if (audio.volume == 0) {
+        volume.classList="fa-solid fa-volume-xmark"
+    }else if(audio.volume <= 0.5){
+        volume.classList ="fa-solid fa-volume-low"
+    }else{
+        volume.classList ="fa-solid fa-volume-high"
+    }
 })
