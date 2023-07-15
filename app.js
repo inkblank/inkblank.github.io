@@ -5,6 +5,9 @@ const singer = document.querySelector("#music-details .singer")
 const prev = document.querySelector("#controls #prev")
 const play = document.querySelector("#controls #play")
 const next = document.querySelector("#controls #next")
+const duration = document.querySelector("#duration")
+const currentTime = document.querySelector("#current-time")
+const progressBar = document.querySelector("#progress-bar")
 
 const player = new MusicPlayer(musicList)
 
@@ -33,30 +36,47 @@ next.addEventListener("click",()=>{
     nextMusic()
 })
 
-function prevMusic(){
+const prevMusic = () => {
     player.previous()
     let music = player.getMusic()
     displayMusic(music)
     playMusic()
 }
 
-function pauseMusic(){
+const pauseMusic =() => {
     audio.pause()
     container.classList.remove('playing')
     play.classList = "fa-solid fa-play"
     play.style.color = "red"
 }
 
-function playMusic(){
+const playMusic = () => {
     audio.play()
     container.classList.add('playing')
     play.classList = "fa-solid fa-pause"
     play.style.color = "blue"
 }
 
-function nextMusic(){
+const nextMusic = () => {
     player.next()
     let music = player.getMusic()
     displayMusic(music)
     playMusic()
 }
+
+
+audio.addEventListener("loadedmetadata",()=>{
+    duration.textContent = calculateTime(audio.duration)
+    progressBar.max = Math.floor(audio.duration)
+})
+const calculateTime = (time) =>`${Math.floor(time/60)}:${Math.floor(time % 60) < 10 ? `0${Math.floor(time % 60)}`: Math.floor(time % 60) }`
+
+audio.addEventListener("timeupdate",()=>{
+    progressBar.value = Math.floor(audio.currentTime)
+    currentTime.textContent = calculateTime(progressBar.value)
+})
+
+progressBar.addEventListener("input", () => {
+    audio.currentTime = progressBar.value
+    currentTime.textContent = calculateTime(progressBar.value)
+})

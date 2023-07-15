@@ -1,3 +1,7 @@
+.container{
+    width: 350px;
+}
+
 #controls i{
     font-size: 30px;
     color: blue;
@@ -11,3 +15,22 @@
 #controls .fa-solid:hover{
     opacity: .6;
 }
+
+#progress{
+    margin-bottom: 20px;
+}
+
+#progress .times, #controls{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+#progress-bar{
+    width: 100%;
+}
+
+#music-image{
+    width: 100%;
+}
+
